@@ -8,10 +8,6 @@
   <title>Slang</title>
   <link href="https://fonts.cdnfonts.com/css/quicksand" rel="stylesheet">
   <style>
-    * {
-      transition: .25s;
-    }
-
     body {
       font-family: 'Quicksand Book', sans-serif;
       color: #135;
@@ -92,7 +88,8 @@
             .then(res => res.json())
             .then(data => {
               let definition = data.result[".definition:first-child"][0];
-              definition.replace(hash, `<b>${hash}</b>`);
+              let keyword = new RegExp(hash, "i");
+              definition.replace(keyword, "");
               text.innerHTML = definition;
             }).catch(err => {
               text.innerHTML = "No definition found.";
