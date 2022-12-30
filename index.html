@@ -72,7 +72,6 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const input = document.querySelector('input');
-      const text = document.querySelector('p');
       let hash = window.location.hash.slice(1);
       if (hash) {
         input.value = hash;
@@ -82,9 +81,9 @@
         window.location.hash = input.value;
       });
       window.addEventListener("hashchange", slangCheck);
-    });
-    function slangCheck() {
-      hash = window.location.hash.slice(1);
+
+      function slangCheck() {
+        hash = window.location.hash.slice(1);
         fetch(`https://web.scraper.workers.dev/?url=https%3A%2F%2Fwww.urbandictionary.com%2Fdefine.php%3Fterm%3D${hash}&selector=.definition%3Afirst-child&scrape=text&pretty=true`)
           .then(res => res.json())
           .then(data => {
@@ -92,7 +91,8 @@
           }).catch(err => {
             text.innerHTML = "No definition found!";
           });
-    }
+      }
+    });
   </script>
 </body>
 
