@@ -88,7 +88,7 @@
             .then(res => res.json())
             .then(data => {
               let definition = data.result[".definition:first-child"][0];
-              let keyword = "/" + hash + "/";
+              let keyword = new RegExp(hash, "i");
               definition.replace(keyword, "");
               text.innerHTML = definition;
             }).catch(err => {
