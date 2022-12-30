@@ -11,7 +11,7 @@
     body {
       font-family: 'Quicksand Book', sans-serif;
       color: #135;
-      height: 100%;
+      height: calc(100vh - 2em);
       background: #e8e8e8;
     }
 
@@ -88,7 +88,7 @@
             .then(res => res.json())
             .then(data => {
               let definition = data.result[".definition:first-child"][0];
-              let keyword = new RegExp(hash, "i");
+              let keyword = new RegExp(hash, "");
               definition.replace(keyword, "");
               text.innerHTML = definition;
             }).catch(err => {
