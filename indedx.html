@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slang</title>
+  <link href="https://fonts.cdnfonts.com/css/quicksand" rel="stylesheet">
+  <style>
+    * {
+      transition: .25s;
+    }
+
+    body {
+      font-family: 'Quicksand Book', sans-serif;
+      color: #135;
+      height: 100vh;
+      background: #e8e8e8;
+    }
+
+    body,
+    main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    main {
+      width: 90%;
+      max-width: 480px;
+      margin-right: 2em;
+    }
+
+    input {
+      font-family: Quicksand Bold, sans-serif;
+      width: 100%;
+      border: none;
+      border-radius: 15px;
+      padding: 1em;
+      background: #e0e0e0;
+      box-shadow: 15px 15px 30px #bebebe,
+        -15px -15px 30px #ffffff;
+      font-size: medium;
+      font-weight: bold;
+    }
+
+    input:focus {
+      outline-color: white;
+      place-content: "Enter your message!";
+    }
+
+    p {
+      width: 100%;
+      padding: 1em;
+      border-radius: .6em;
+      background: #e0e0e0;
+      box-shadow: 15px 15px 30px #bebebe,
+        -15px -15px 30px #ffffff;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div>
+      <h1>Slang</h1>
+      <input type="text" name="text" placeholder="Type here!">
+      <p></p>
+    </div>
+  </main>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const input = document.querySelector('input');
+      const text = document.querySelector('p');
+      input.addEventListener('input', () => {
+        window.location.hash = input.value;
+      });
+      window.addEventListener("hashchange", () => {
+        let hash = window.location.hash.slice(1);
+        fetch(`https://web.scraper.workers.dev/?url=https%3A%2F%2Fwww.urbandictionary.com%2Fdefine.php%3Fterm%3D${hash}&selector=.definition%3Afirst-child&scrape=text&pretty=true`)
+          .then(res => res.json())
+          .then(data => {
+            text.innerHTML = data.result[".definition:first-child"][0];
+          }).catch(err => {
+            text.innerHTML = "No definition found!";
+          });
+      });
+    });
+  </script>
+</body>
+
+</html>
