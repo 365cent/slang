@@ -88,7 +88,7 @@
             .then(res => res.json())
             .then(data => {
               let definition = data.result[".definition:first-child"][0];
-              definition.replace(/\r/, "<br>");
+              definition.replace(/\r/g, "<br>");
               text.innerHTML = definition;
             }).catch(err => {
               text.innerHTML = "No definition found.";
