@@ -74,6 +74,9 @@
       const input = document.querySelector('input');
       const text = document.querySelector('p');
       let hash = window.location.hash.slice(1);
+      if (hash) {
+        input.value = hash;
+      }
       input.addEventListener('input', () => {
         window.location.hash = input.value;
       });
