@@ -77,6 +77,8 @@
       if (hash) {
         input.value = hash;
         slangCheck();
+      } else {
+        text.innerHTML = "Type above to get a definition!";
       }
       input.addEventListener('input', () => {
         window.location.hash = input.value;
@@ -85,13 +87,17 @@
 
       function slangCheck() {
         hash = window.location.hash.slice(1);
-        fetch(`https://web.scraper.workers.dev/?url=https%3A%2F%2Fwww.urbandictionary.com%2Fdefine.php%3Fterm%3D${hash}&selector=.definition%3Afirst-child&scrape=text&pretty=true`)
-          .then(res => res.json())
-          .then(data => {
-            text.innerHTML = data.result[".definition:first-child"][0];
-          }).catch(err => {
-            text.innerHTML = "No definition found!";
-          });
+        if (hash) {
+          fetch(`https://web.scraper.workers.dev/?url=https%3A%2F%2Fwww.urbandictionary.com%2Fdefine.php%3Fterm%3D${hash}&selector=.definition%3Afirst-child&scrape=text&pretty=true`)
+            .then(res => res.json())
+            .then(data => {
+              text.innerHTML = data.result[".definition:first-child"][0];
+            }).catch(err => {
+              text.innerHTML = "No definition found.";
+            });
+        } else {
+          text.innerHTML = "Type above to get a definition!";
+        }
       }
     });
   </script>
