@@ -91,6 +91,7 @@
             .then(data => {
               // remove window.location.hash.slice(1) from the string
               data = data.replace(new RegExp(hash, "i"), "");
+              data = data.replace(new RegExp("FlagGet the " + hash + " mug.", "i"), "");
               data = data.replace(/\\r/g, "<br>");
               data = data.replace(/[1-9][0-9]*\./g, `<br>$&`);
               text.innerHTML = data;
